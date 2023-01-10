@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import mimetypes
+import os
 
 mimetypes.add_type('application/javascript', '.js', True)
 
@@ -23,10 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-42v*k!ogqxqth4%s-3kad-d(5!m)t7j$rom5h5ydha#8mpuyo2'
+# SECRET_KEY = 'django-insecure-42v*k!ogqxqth4%s-3kad-d(5!m)t7j$rom5h5ydha#8mpuyo2'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-42v*k!ogqxqth4%s-3kad-d(5!m)t7j$rom5h5ydha#8mpuyo2')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -123,10 +126,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
 
+"""  
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+"""
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
